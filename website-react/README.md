@@ -1,4 +1,4 @@
-[Bootstrap docs](https://react-bootstrap.netlify.app/components)
+[Bootstrap docs](https://react-bootstrap.netlify.app/components/alerts/)
 
 # Getting Started with Create React App
 
