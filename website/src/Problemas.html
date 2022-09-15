@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FaceBug - O mundo Tec para você!</title>
+    <!-- BOOTSTRAP - INICIO-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+    <!-- BOOTSTRAP - FIM-->
+    <script defer src="https://kit.fontawesome.com/872b100b3f.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="navbar navbar-expand-lg bg-warning navbar-dark">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" href="perfil.html">
+                            <img src="img/perfil-logo.png" alt="Avatar Logo" style="width:40px;" class="rounded-pill"> 
+                        </a>
+                        <a href="principal.html">
+                            <img src="img/logo.png" style="width: 100px;" alt="logo da empresa">
+                        </a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse text-center" id="collapsibleNavbar">
+                            <ul class="navbar-nav">
+                            <li class="nav-item p-2">
+                                <a style="color: black;" class="nav-link" href="AssuntosMomento.html">Assuntos Do Momento</a>
+                            </li>
+                            <li class="nav-item p-2">
+                                <a style="color: black;" class="nav-link" href="Problemas.html">Problemas, Ajude!</a>
+                            </li>
+                            <li class="nav-item p-2">
+                                <a style="color: black;" class="nav-link" href="Curtidas.html">Curtidas</a>
+                            </li>
+                            <li class="nav-item p-2">
+                                <a style="color: black;" class="nav-link" href="PublicPost.html">Publicar Post</a>
+                            </li>
+                            <li class="nav-item p-2">
+                                <button type="button" class="btn btn-dark">Dark mode</button>
+                            </li>
+                            </ul>
+                            <form class="form-inline p-2">
+                                <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar Perfis" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </nav> 
+            </div>
+        </div>
+    </header>
+
+    <section class="bg-warning">
+        <div class="container-fluid">
+            <div class="row">
+                <button type="button" class="btn btn-primary">
+                    Notificações<span class="badge badge-light">12</span>
+                </button>
+            </div>
+            <div class="row">
+                <h1 class="p-2 text-dark text-center">PROBLEMAS</h1>
+                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 p-3 justify-content-center">
+                    <div class="card">
+                        <div class="card-body">
+                          <h4 class="card-title text-danger text-center">PROBLEMA!</h4>
+                          <h5 class="card-title">Alguem me ajuda nesse problema?</h5>
+                          <a href="#" class="text-decoration-none"><h6 class="text-warning">Pedro Santayana</h6></a>
+                          <p class="card-text">Ta dando essa exception que eu não faço IDEIA... Algum gênio em java pra poder me salvar aí? Ta difícil demaissss</p>
+                        </div>
+                        <img class="card-img-top p-2" src="img/mismatch.png" alt="Card image cap">
+                        <a href="#" class="text-center p-1 text-danger" style="border: 1px solid lightgray;">
+                            <i class="fa-solid fa-heart"></i>
+                        </a>
+                        <a href="#" class="text-center p-1 text-success" style="border: 1px solid lightgray;">
+                            <i class="fa-solid fa-comments"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 p-3 justify-content-center">
+                    <div class="card">
+                        <div class="card-body">
+                          <h4 class="card-title text-danger text-center">PROBLEMA!</h4>
+                          <h5 class="card-title">QUE PROBLEMA É ESSE MANO?!</h5>
+                          <a href="#" class="text-decoration-none"><h6 class="text-warning">Fábio Freire</h6></a>
+                          <p class="card-text">Eu dou uma paçoca pra quem resolver essa FormatException aqui, tentei por 1hr30min e não consegui... eu preciso entregar isso, então quem puder me ajudar vou ficar muito grato! Obrigado desde já galerinha tech</p>
+                        </div>
+                        <img class="card-img-top p-2" src="img/formatException.png" alt="Card image cap">
+                        <a href="#" class="text-center p-1 text-danger" style="border: 1px solid lightgray;">
+                            <i class="fa-solid fa-heart"></i>
+                        </a>
+                        <a href="#" class="text-center p-1 text-success" style="border: 1px solid lightgray;">
+                            <i class="fa-solid fa-comments"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <footer>
+        <div class="container-fluid">
+            <div class="row text-center" style="background: black; border-top: 2px solid white">
+                <a href="principal.html">
+                    <img src="img/logo2.png" style="width: 100px;" alt="logo da empresa">
+                </a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
