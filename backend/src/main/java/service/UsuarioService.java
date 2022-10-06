@@ -9,5 +9,4 @@ public class UsuarioService {
 
   }
 
-  public json
 }
