@@ -10,7 +10,7 @@ public class Facebug {
   private static ProdutoService produtoService = new ProdutoService();
   private static UsuarioService usuarioService = new UsuarioService();
   private static PostagemService postagemService = new PostagemService();
-
+  private static FeedService feedService = new FeedService();
   public static void main(String[] args) {
     port(6789);
 
@@ -31,6 +31,7 @@ public class Facebug {
     get("/postagem/listar/categoria/:id", (request, response) -> PostagemService.list(request, response));
     get("/postagem/usuario/:username", (request, response) -> PostagemService.list(request, response));
 
+    
     get("/feed/:username", (request, response) -> );
 
     get("/categoria/listar", (request, response) -> );
