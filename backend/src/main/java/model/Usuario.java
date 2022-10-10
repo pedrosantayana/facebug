@@ -1,15 +1,29 @@
 package model;
 
+import java.util.UUID;
+
+import org.json.JSONObject;
+
 public class Usuario {
   private String username;
   private String email;
   private byte[] hashedPassword;
-  private int followers;
+  private UUID[] followers;
   private int likes;
-  private int following;
+  private UUID[] following;
 
   public Usuario() {
     
+  }
+
+  public JSONObject toJSON() {
+    JSONObject resp = new JSONObject();
+    resp.put("username", username);
+    resp.put("followers", followers);
+    resp.put("following", following);
+    resp.put("likes", likes);
+
+    return resp;
   }
 
   public String getUsername() {
@@ -36,11 +50,11 @@ public class Usuario {
     this.hashedPassword = hashedPassword;
   }
 
-  public int getFollowers() {
+  public UUID[] getFollowers() {
     return followers;
   }
 
-  public void setFollowers(int followers) {
+  public void setFollowers(UUID[] followers) {
     this.followers = followers;
   }
 
@@ -52,11 +66,11 @@ public class Usuario {
     this.likes = likes;
   }
 
-  public int getFollowing() {
+  public UUID[] getFollowing() {
     return following;
   }
 
-  public void setFollowing(int following) {
+  public void setFollowing(UUID[] following) {
     this.following = following;
   }
 }
