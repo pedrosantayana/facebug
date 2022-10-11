@@ -12,6 +12,12 @@ public class Usuario {
   private int likes;
   private UUID[] following;
 
+  public Usuario(String username, String email, byte[] hashedPassword) {
+    this.username = username;
+    this.email = email;
+    this.hashedPassword = hashedPassword;
+  }
+
   public Usuario() {
     
   }

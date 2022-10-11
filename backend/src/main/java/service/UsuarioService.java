@@ -16,29 +16,31 @@ public class UsuarioService {
   private MessageDigest md;
 
   public UsuarioService() {
-
     try {
       md = MessageDigest.getInstance("SHA-256");
     } catch (NoSuchAlgorithmException e) {
+      System.err.println("Algoritmo SHA-256 não encontrado na JVM.");
       e.printStackTrace();
     }
   }
 
   public Object register(Request request, Response response) {
-    Usuario user = new Usuario();
-
-    user.setUsername(request.params("username"));
-    user.setEmail(request.params("email"));
-    user.setHashedPassword(md.digest(request.params("password").getBytes()));
-
+    response.type("application/json");
     JSONObject resp = new JSONObject();
+
+    JSONObject body = new JSONObject(request.body());
+
+    String username = body.getString("username");
+    String email = body.getString("email");
+    byte[] hashedPassword = md.digest(body.getString("password").getBytes());
+
+    Usuario user = new Usuario(username, email, hashedPassword);
 
     if (usuarioDAO.create(user)) {
       Session session = sessionService.login(user);
 
       resp.put("status", 0);
-      resp.put("username", user.getUsername());
-      resp.put("token", session.getToken());
+      resp.put("session", session.toJSON());
     } else {
       resp.put("status", 1);
     }
@@ -47,9 +49,11 @@ public class UsuarioService {
   }
 
   public Object login(Request request, Response response) {
-    Usuario user = usuarioDAO.get(request.params("username"));
-
+    response.type("application/json");
     JSONObject resp = new JSONObject();
+    JSONObject body = new JSONObject(request.body());
+
+    Usuario user = usuarioDAO.get(body.getString("username"));
 
     if (user != null) {
       byte[] password = md.digest(request.params("password").getBytes());
@@ -58,8 +62,7 @@ public class UsuarioService {
         Session session = sessionService.login(user);
 
         resp.put("status", 0);
-        resp.put("username", user.getUsername());
-        resp.put("token", session.getToken());
+        resp.put("session", session.toJSON());
       } else {
         resp.put("status", 1);
       }
@@ -69,39 +72,54 @@ public class UsuarioService {
   }
 
   public Object update(Request request, Response response) {
-    String username = request.params("username");
-    String token = request.params("token");
+    response.type("application/json");
+    JSONObject resp = new JSONObject();
 
-    if (sessionService.isAuth(username, token)) {
-      String newUsername = request.params("newUsername");
-      String newEmail = request.params("newEmail");
-      String newPassword = request.params("newPassword");
+    JSONObject body = new JSONObject(request.body());
+
+    Session session = new Session(body.getJSONObject("session"));
+
+    if (sessionService.isAuth(session)) {
+      String newUsername = body.getString("newUsername");
+      String newEmail = body.getString("newEmail");
+      String newPassword = body.getString("newPassword");
 
       Usuario newUser = new Usuario();
       newUser.setUsername(newUsername);
       newUser.setEmail(newEmail);
       newUser.setHashedPassword(md.digest(newPassword.getBytes()));
-    } else {
 
+      if (usuarioDAO.update(session.getUsername(), newUser)) {
+        resp.put("status", 0);
+      } else {
+        resp.put("status", 1);
+      }
+    } else {
+      resp.put("status", 2);
     }
 
-    return null;
+    return resp;
   }
 
   public Object delete(Request request, Response response) {
-    String token = request.params("token");
-    String username = request.params("username");
-
+    response.type("application/json");
     JSONObject resp = new JSONObject();
 
-    if (sessionService.isAuth(username, token)) {
-      sessionService.logout(username, token);
+    JSONObject body = new JSONObject(request.body());
 
-      usuarioDAO.delete(username);
+    Session session = new Session(body.getJSONObject("session"));
 
-      resp.put("status", 0);
+    if (sessionService.isAuth(session)) {
+      sessionService.logout(session);
+
+      if (usuarioDAO.delete(session.getUsername())) {
+        resp.put("status", 0);
+      } else {
+        resp.put("status", 1);
+      }
+
     } else {
-      resp.put("status", 0);
+      resp.put("status", 2);
     }
 
     return resp;
@@ -109,26 +127,28 @@ public class UsuarioService {
 
   public Object get(Request request, Response response) {
     response.type("application/json");
-
-    String username = request.queryParams("username");
-    Usuario user = usuarioDAO.get(username);
-
     JSONObject resp = new JSONObject();
 
-    resp.put("username", user.getUsername());
-    resp.put("followers", user.getFollowers());
-    resp.put("following", user.getFollowing());
-    resp.put("likes", user.getLikes());
+    String username = request.params("username");
+    Usuario user = usuarioDAO.get(username);
+
+    if (user != null) {
+      resp.put("status", 0);
+      resp.put("user", user.toJSON());
+    } else {
+      resp.put("status", 1);
+    }
 
     return resp;
   }
 
   public Object search(Request request, Response response) {
-    Usuario[] users = usuarioDAO.search(request.queryParams("username"));
-
+    response.type("application/json");
     JSONObject resp = new JSONObject();
 
-    for(Usuario user : users) {
+    Usuario[] users = usuarioDAO.search(request.queryParams("query"));
+
+    for (Usuario user : users) {
       resp.append("users", user.toJSON());
     }
 
