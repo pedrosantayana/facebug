@@ -3,17 +3,18 @@ package service;
 import java.security.SecureRandom;
 import java.util.*;
 
+import org.json.JSONObject;
+
 import model.Usuario;
 
 public class SessionService {
-  private HashMap<String, Session> sessionPool = new HashMap<>();
+  static HashMap<String, Session> sessionPool = new HashMap<>();
 
   public SessionService() {
 
   }
 
   public boolean isOnline(String username) {
-
     return sessionPool.containsKey(username);
   }
 
@@ -37,7 +38,6 @@ public class SessionService {
 }
 
 class Session {
-
   private String token;
   private String username;
   private static final SecureRandom secureRandom = new SecureRandom(); // threadsafe
@@ -52,6 +52,11 @@ class Session {
   public Session(String username, String token) {
     this.token = token;
     this.username = token;
+  }
+
+  public Session(JSONObject session) {
+    username = (String) session.get("username");
+    token = (String) session.get("token");
   }
 
   public String getToken() {
