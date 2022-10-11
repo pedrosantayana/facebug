@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Date;
+import java.time.Instant;
 import java.util.UUID;
 
 import org.json.JSONObject;
@@ -23,6 +24,16 @@ public class Postagem {
     this.categoryId = categoryId;
     this.date = date;
     this.ownerUsername = ownerUsername;
+  }
+
+  public Postagem(String title, String content, String media, UUID categoryId, String ownerUsername) {
+    this.title = title;
+    this.content = content;
+    this.media = media;
+    this.categoryId = categoryId;
+    this.ownerUsername = ownerUsername;
+    this.id = UUID.randomUUID();
+    this.date = new Date(Instant.now().toEpochMilli());
   }
 
   public JSONObject toJSON() {
