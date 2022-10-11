@@ -1,5 +1,6 @@
 package service;
 
+import java.security.acl.Owner;
 import java.sql.Date;
 import java.time.Instant;
 import java.util.UUID;
@@ -25,24 +26,18 @@ public class PostagemService {
     response.type("application/json");
     JSONObject resp = new JSONObject();
 
-    if (sessionService.isAuth(request.params("username"), request.params("token"))) {
+    JSONObject body = new JSONObject(request.body());
 
-      UUID id = UUID.randomUUID();
-      String username = request.params("username");
+    Session session = new Session(body.getJSONObject("session"));
+
+    if (sessionService.isAuth(session)) {
+      String ownerUsername = request.params("ownerUsername");
       String media = request.params("media");
-      String categoryId = request.params("category");
+      String categoryId = request.params("categoryId");
       String title = request.params("title");
       String content = request.params("content");
 
-      Postagem post = new Postagem();
-
-      post.setId(id);
-      post.setUsername(username);
-      post.setMedia(media);
-      post.setCategory(categoryId);
-      post.setTitle(title);
-      post.setContent(content);
-      post.setDate(Date.from(Instant.now()));
+      Postagem post = new Postagem(title, content, media, UUID.fromString(categoryId), ownerUsername);
 
       if (postagemDAO.insert(post)) {
         resp.put("status", 0);
@@ -60,17 +55,21 @@ public class PostagemService {
     response.type("application/json");
     JSONObject resp = new JSONObject();
 
-    if (sessionService.isAuth(request.params("username"), request.params("token"))) {
-      Postagem post = postagemDAO.get(request.params("id"));
+    JSONObject body = new JSONObject(request.body());
 
-      if (post != null && post.getUsername() == request.params("username")) {
+    Session session = new Session(body.getJSONObject("session"));
+
+    if (sessionService.isAuth(session)) {
+      Postagem post = postagemDAO.get(UUID.fromString(request.params("id")));
+
+      if (post != null && post.getOwnerUsername().equals(session.getUsername())) {
         String media = request.params("media");
-        String categoryId = request.params("category");
+        String categoryId = request.params("categoryId");
         String title = request.params("title");
         String content = request.params("content");
 
         post.setMedia(media);
-        post.setCategory(categoryId);
+        post.setCategoryId(UUID.fromString(categoryId));
         post.setTitle(title);
         post.setContent(content);
 
@@ -93,11 +92,15 @@ public class PostagemService {
     response.type("application/json");
     JSONObject resp = new JSONObject();
 
-    if (sessionService.isAuth(request.params("username"), request.params("token"))) {
+    JSONObject body = new JSONObject(request.body());
 
-      Postagem post = postagemDAO.get(request.params("id"));
+    Session session = new Session(body.getJSONObject("session"));
 
-      if (post != null && post.getUsername() == request.params("username")) {
+    if (sessionService.isAuth(session)) {
+
+      Postagem post = postagemDAO.get(UUID.fromString(request.params("id")));
+
+      if (post != null && post.getOwnerUsername().equals(session.getUsername())) {
         if (postagemDAO.delete(post.getId())) {
           resp.put("status", 0);
         } else {
@@ -115,8 +118,8 @@ public class PostagemService {
 
   public Object get(Request request, Response response) {
     response.type("application/json");
-    String id = request.queryParams("id");
-    Postagem post = postagemDAO.get(id);
+    String id = request.params("id");
+    Postagem post = postagemDAO.get(UUID.fromString(id));
 
     return post.toJSON();
   }

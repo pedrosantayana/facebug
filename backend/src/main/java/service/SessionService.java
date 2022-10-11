@@ -32,8 +32,8 @@ public class SessionService {
     sessionPool.remove(username);
   }
 
-  public boolean isAuth(String username, String token) {
-    return false;
+  public boolean isAuth(Session session) {
+    return sessionPool.containsKey(session.getUsername()) && sessionPool.get(session.getUsername()).getToken().equals(session.getToken());
   }
 }
 
@@ -57,6 +57,15 @@ class Session {
   public Session(JSONObject session) {
     username = (String) session.get("username");
     token = (String) session.get("token");
+  }
+
+  public JSONObject toJSON() {
+    JSONObject resp = new JSONObject();
+
+    resp.put("username", username);
+    resp.put("token", token);
+
+    return resp;
   }
 
   public String getToken() {

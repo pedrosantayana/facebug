@@ -21,14 +21,14 @@ public class Facebug {
     post("/usuario/update", (request, response) -> usuarioService.update(request, response));
     post("/usuario/delete", (request, response) -> usuarioService.delete(request, response));
     get("/usuario/info/:username", (request, response) -> usuarioService.get(request, response));
-    get("/usuario/pesquisar/:username", (request, response) -> usuarioService.search(request, response));
+    get("/usuario/pesquisar/:query", (request, response) -> usuarioService.search(request, response));
 
     // Gera o feed com postagens relevantes ao usuario
     get("/usuario/feed/:username", (request, response) -> usuarioService.feed(request, response));
 
     post("/postagem/criar", (request, response) -> postagemService.insert(request, response));
-    post("/postagem/update", (request, response) -> postagemService.update(request, response));
-    post("/postagem/delete", (request, response) -> postagemService.delete(request, response));
+    post("/postagem/update/:id", (request, response) -> postagemService.update(request, response));
+    post("/postagem/delete/:id", (request, response) -> postagemService.delete(request, response));
     get("/postagem/:id", (request, response) -> postagemService.get(request, response));
     get("/postagem/listar/categoria/:id", (request, response) -> postagemService.list(request, response));
     get("/postagem/usuario/:username", (request, response) -> postagemService.list(request, response));
