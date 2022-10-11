@@ -1,88 +1,124 @@
 package service;
 
+import java.sql.Date;
+import java.time.Instant;
+import java.util.UUID;
+
 import org.json.JSONObject;
 
 import dao.PostagemDAO;
 import model.Categoria;
 import model.Postagem;
+import model.Usuario;
 import spark.Request;
 import spark.Response;
 
 public class PostagemService {
   private PostagemDAO postagemDAO = new PostagemDAO();
+  private SessionService sessionService = new SessionService();
 
   public PostagemService() {
 
   }
 
   public Object insert(Request request, Response response) {
+    response.type("application/json");
+    JSONObject resp = new JSONObject();
 
-    UUID newUUID = request.params("newUUID");
-    Usuario newUser = request.params("newUser");
-    String newMedia = request.params("newMedia");
-    Categoria newCategoria = request.params("newCategoria");
-    String newTitulo = request.params("newTitulo");
-    String newConteudo = request.params("newConteudo");
-    Date newDate = request.params("newDate");
+    if (sessionService.isAuth(request.params("username"), request.params("token"))) {
 
-    Postagem newPost = new Postagem();
+      UUID id = UUID.randomUUID();
+      String username = request.params("username");
+      String media = request.params("media");
+      String categoryId = request.params("category");
+      String title = request.params("title");
+      String content = request.params("content");
 
-    newPost.setId(newUUID);
-    newPost.setUser(newUser);
-    newPost.setMedia(newMedia);
-    newPost.setCategory(newCategoria);
-    newPost.setTitle(newTitulo);
-    newPost.setContent(newConteudo);
-    newPost.setDate(newDate);
+      Postagem post = new Postagem();
 
-    postagemDAO.insert(newPost);
+      post.setId(id);
+      post.setUsername(username);
+      post.setMedia(media);
+      post.setCategory(categoryId);
+      post.setTitle(title);
+      post.setContent(content);
+      post.setDate(Date.from(Instant.now()));
+
+      if (postagemDAO.insert(post)) {
+        resp.put("status", 0);
+      } else {
+        resp.put("status", 2);
+      }
+    } else {
+      resp.put("status", 1);
+    }
+
+    return resp;
   }
 
   public Object update(Request request, Response response) {
+    response.type("application/json");
+    JSONObject resp = new JSONObject();
 
-    String newMedia = request.params("newMedia");
-    Categoria newCategoria = request.params("newCategoria");
-    String newTitulo = request.params("newTitulo");
-    String newConteudo = request.params("newConteudo");
+    if (sessionService.isAuth(request.params("username"), request.params("token"))) {
+      Postagem post = postagemDAO.get(request.params("id"));
 
-    Postagem newPost = new Postagem();
+      if (post != null && post.getUsername() == request.params("username")) {
+        String media = request.params("media");
+        String categoryId = request.params("category");
+        String title = request.params("title");
+        String content = request.params("content");
 
-    newPost.setMedia(newMedia);
-    newPost.setCategory(newCategoria);
-    newPost.setTitle(newTitulo);
-    newPost.setContent(newConteudo);
+        post.setMedia(media);
+        post.setCategory(categoryId);
+        post.setTitle(title);
+        post.setContent(content);
 
-    postagemDAO.update(newPost);
+        if (postagemDAO.update(post)) {
+          resp.put("status", 0);
+        } else {
+          resp.put("status", 1);
+        }
+      } else {
+        resp.put("status", 2);
+      }
+    } else {
+      resp.put("status", 3);
+    }
 
-    return null;
+    return resp;
   }
 
   public Object delete(Request request, Response response) {
-    String id = request.params("id");
-
+    response.type("application/json");
     JSONObject resp = new JSONObject();
 
-    postagemDAO.delete(Integer.parseInt(id));
+    if (sessionService.isAuth(request.params("username"), request.params("token"))) {
 
-    resp.put("status", 0);
+      Postagem post = postagemDAO.get(request.params("id"));
+
+      if (post != null && post.getUsername() == request.params("username")) {
+        if (postagemDAO.delete(post.getId())) {
+          resp.put("status", 0);
+        } else {
+          resp.put("status", 1);
+        }
+      } else {
+        resp.put("status", 2);
+      }
+    } else {
+      resp.put("status", 3);
+    }
 
     return resp;
   }
 
   public Object get(Request request, Response response) {
     response.type("application/json");
-
     String id = request.queryParams("id");
-    Postagem post = postagemDAO.get(Integer.parseInt(id));
+    Postagem post = postagemDAO.get(id);
 
-    JSONObject resp = new JSONObject();
-
-    resp.put("username", post.getUser());
-    resp.put("categoria", post.getCategory());
-    resp.put("titulo", post.getTitle());
-    resp.put("conteudo", post.getContent());
-
-    return resp;
+    return post.toJSON();
   }
 
   public Object list(Request request, Response response) {
@@ -92,12 +128,10 @@ public class PostagemService {
 
     JSONObject resp = new JSONObject();
 
-    for(Postagem postagem : postagens){
+    for (Postagem postagem : postagens) {
       resp.append("postagens", postagem.toJSON());
     }
-    
+
     return resp;
   }
-
-
 }
