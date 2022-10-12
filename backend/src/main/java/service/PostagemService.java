@@ -1,16 +1,16 @@
 package service;
 
-import java.security.acl.Owner;
-import java.sql.Date;
-import java.time.Instant;
+// import java.security.acl.Owner;
+// import java.sql.Date;
+// import java.time.Instant;
 import java.util.UUID;
 
 import org.json.JSONObject;
 
 import dao.PostagemDAO;
-import model.Categoria;
+// import model.Categoria;
 import model.Postagem;
-import model.Usuario;
+// import model.Usuario;
 import spark.Request;
 import spark.Response;
 
@@ -126,7 +126,7 @@ public class PostagemService {
 
   public Object list(Request request, Response response) {
     String id = request.queryParams("id");
-    Postagem post = postagemDAO.get(Integer.parseInt(id));
+    Postagem post = postagemDAO.get(UUID.fromString(id));
     Postagem[] postagens = postagemDAO.list(request.queryParams("username"));
 
     JSONObject resp = new JSONObject();
