@@ -1,8 +1,8 @@
 import React from "react"
+import TrendingTopics from "../components/TrendingTopics"
 
 export default () => {
   return(
-    <div>
-    </div>
+    <TrendingTopics titleTrending="titulo qualquer"/>
   )
 }

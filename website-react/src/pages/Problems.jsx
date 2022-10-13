@@ -1,10 +1,12 @@
 import React from "react"
+import ProblemsComp from "../components/ProblemsComp"
+import Post from "../components/Post"
 
 export default () => {
   return(
     <div>
-      
-      aaaa
+      <ProblemsComp/>
+      <Post />
     </div>
   )
 }
