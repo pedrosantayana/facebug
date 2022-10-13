@@ -1,16 +1,13 @@
 package dao;
 
-import model.Usuario;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+
+import model.Usuario;
 
 /**
  * UsuarioDAO: herda DAO e utiliza model Usuario.
@@ -48,7 +45,8 @@ public class UsuarioDAO extends DAO {
     boolean status = false;
 
     try {
-      String sql = "CREATE INTO usuario (Username, Email, Password, Followers, Likes, Following) VALUES (?,?, " +usuario.getHashedPassword() + ",?,?,?); ";
+      String sql = "CREATE INTO usuario (Username, Email, Password, Followers, Likes, Following) VALUES (?,?, "
+          + usuario.getHashedPassword() + ",?,?,?); ";
 
       PreparedStatement st = conexao.prepareStatement(sql);
       st.setString(1, usuario.getUsername());
@@ -83,7 +81,7 @@ public class UsuarioDAO extends DAO {
 
       if (rs.next()) {
 
-         usuario = new Usuario(rs.getString("username"), rs.getString("email"), rs.getBytes("hashedPassword"));
+        usuario = new Usuario(rs.getString("username"), rs.getString("email"), rs.getBytes("hashedPassword"));
       }
 
       st.close();
@@ -153,16 +151,16 @@ public class UsuarioDAO extends DAO {
 
       int i = 0;
       while (rs.next()) {
-  
-         usuarios[i] = new Usuario(rs.getString("username"), rs.getString("email"), rs.getBytes("hashedPassword"));
-        
+
+        usuarios[i] = new Usuario(rs.getString("username"), rs.getString("email"), rs.getBytes("hashedPassword"));
+
         i++;
       }
 
       st.close();
     } catch (Exception e) {
       System.err.println(e.getMessage());
-    }    
+    }
 
     return usuarios;
   }
@@ -179,7 +177,8 @@ public class UsuarioDAO extends DAO {
     boolean status = false;
 
     try {
-		String sql = "UPDATE usuario SET Email=?, HashedPassword=" + usuario.getHashedPassword() + " , Followers=?, Likes=?, Following=? WHERE username =" + username;
+      String sql = "UPDATE usuario SET Email=?, HashedPassword=" + usuario.getHashedPassword()
+          + " , Followers=?, Likes=?, Following=? WHERE username =" + username;
 
       PreparedStatement st = conexao.prepareStatement(sql);
       st.setString(1, usuario.getEmail());
@@ -222,31 +221,35 @@ public class UsuarioDAO extends DAO {
   }
 
   /**
-   * Busca usuario a partir de um username 
+   * Busca usuario a partir de um username
    * 
    * @param username <code>String</code> identificador do usuario
    * @return <code>Usuario</code> status
    */
   public Usuario[] search(String query) {
-     Usuario[] usuarios = new Usuario[100];
+    Usuario[] usuarios = new Usuario[100];
 
-     try {
+    try {
       Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
       String sql = "SELECT * FROM usuario WHERE Username=" + query;
       ResultSet rs = st.executeQuery(sql);
-     
+
       int i = 0;
       while (rs.next()) {
-  
-         usuarios[i] = new Usuario(rs.getString("username"), rs.getString("email"), rs.getBytes("hashedPassword"));
-        
+
+        usuarios[i] = new Usuario(rs.getString("username"), rs.getString("email"), rs.getBytes("hashedPassword"));
+
         i++;
       }
       st.close();
     } catch (Exception e) {
       System.err.println(e.getMessage());
-    }    
+    }
 
     return usuarios;
+  }
+
+  public boolean create(Usuario user) {
+    return false;
   }
 }
