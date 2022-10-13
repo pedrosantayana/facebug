@@ -86,9 +86,9 @@ public class PostagemDAO extends DAO {
       if (rs.next()) {
         UUID _id = (UUID) rs.getObject("id");
         UUID _categoryId = (UUID) rs.getObject("categoryId");
-        
+
         postagem = new Postagem(_id, rs.getString("title"), rs.getString("content"),
-            rs.getString("media"), _categoryId, rs.getDate("date"), 
+            rs.getString("media"), _categoryId, rs.getDate("date"),
             rs.getString("ownerUsername"));
       }
 
@@ -137,10 +137,10 @@ public class PostagemDAO extends DAO {
       while (rs.next()) {
         UUID _id = (UUID) rs.getObject("id");
         UUID _categoryId = (UUID) rs.getObject("categoryId");
-        
+
         Postagem p = new Postagem(_id, rs.getString("title"), rs.getString("content"),
-                  rs.getString("media"), _categoryId, rs.getDate("date"), 
-                  rs.getString("ownerUsername"));
+            rs.getString("media"), _categoryId, rs.getDate("date"),
+            rs.getString("ownerUsername"));
 
         postagens.add(p);
       }
@@ -165,21 +165,21 @@ public class PostagemDAO extends DAO {
       while (rs.next()) {
         UUID _id = (UUID) rs.getObject("id");
         UUID _categoryId = (UUID) rs.getObject("categoryId");
-        
+
         postagens[i] = new Postagem(_id, rs.getString("title"), rs.getString("content"),
-                  rs.getString("media"), _categoryId, rs.getDate("date"), 
-                  rs.getString("ownerUsername"));
-        
+            rs.getString("media"), _categoryId, rs.getDate("date"),
+            rs.getString("ownerUsername"));
+
         i++;
       }
 
       st.close();
     } catch (Exception e) {
       System.err.println(e.getMessage());
-    }    
+    }
 
     return postagens;
-  } 
+  }
 
   /**
    * Atualiza postagem no banco de dados
@@ -193,7 +193,7 @@ public class PostagemDAO extends DAO {
     boolean status = false;
 
     try {
-     String sql = "UPDATE postagem SET title=?, content=?, media=?, categoryId=?, date=?, ownerUsername=?";
+      String sql = "UPDATE postagem SET title=?, content=?, media=?, categoryId=?, date=?, ownerUsername=?";
 
       PreparedStatement st = conexao.prepareStatement(sql);
       st.setString(1, postagem.getTitle());

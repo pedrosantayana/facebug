@@ -8,7 +8,7 @@ public class Categoria {
 
     }
 
-    public Categoria(String nome, int UUID){
+    public Categoria(String nome, int UUID) {
         this.nome = nome;
         this.UUID = UUID;
     }
@@ -16,15 +16,17 @@ public class Categoria {
     public String getNome() {
         return nome;
     }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
+
     public int getUUID() {
         return UUID;
     }
+
     public void setUUID(int uUID) {
         UUID = uUID;
     }
 
-    
 }

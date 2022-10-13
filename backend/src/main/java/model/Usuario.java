@@ -19,7 +19,7 @@ public class Usuario {
   }
 
   public Usuario() {
-    
+
   }
 
   public JSONObject toJSON() {
