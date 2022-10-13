@@ -125,8 +125,6 @@ public class PostagemService {
   }
 
   public Object list(Request request, Response response) {
-    String id = request.queryParams("id");
-    Postagem post = postagemDAO.get(UUID.fromString(id));
     Postagem[] postagens = postagemDAO.list(request.queryParams("username"));
 
     JSONObject resp = new JSONObject();
