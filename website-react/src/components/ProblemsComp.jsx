@@ -7,7 +7,3 @@ function ProblemsComp(){
 }
 
 export default ProblemsComp;
-
-<main class="bg-warning">
-        <h1 class="py-3 text-dark text-center">Problemas</h1>
-    </main>
