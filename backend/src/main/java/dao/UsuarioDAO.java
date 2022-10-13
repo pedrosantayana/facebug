@@ -41,11 +41,11 @@ public class UsuarioDAO extends DAO {
    *         <code>true</code> se conseguir inserir
    *         <code>false</code> se nao conseguir
    */
-  public boolean insert(Usuario usuario) {
+  public boolean create(Usuario usuario) {
     boolean status = false;
 
     try {
-      String sql = "CREATE INTO usuario (Username, Email, Password, Followers, Likes, Following) VALUES (?,?, "
+      String sql = "INSERT INTO usuario (Username, Email, Password, Followers, Likes, Following) VALUES (?,?, "
           + usuario.getHashedPassword() + ",?,?,?); ";
 
       PreparedStatement st = conexao.prepareStatement(sql);
