@@ -101,7 +101,7 @@ export function deletePost(id, session) {
   return postData("/postagem/delete/"+id, session);
 }
 
-export function updatePost(id, title, content, session)
+// export function updatePost(id, title, content, session)
 
 export function getCategories() {
   return getData("/categoria/list");
