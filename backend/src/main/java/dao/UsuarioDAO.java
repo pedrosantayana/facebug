@@ -248,8 +248,4 @@ public class UsuarioDAO extends DAO {
 
     return usuarios;
   }
-
-  public boolean create(Usuario user) {
-    return false;
-  }
 }
