@@ -1,10 +1,8 @@
 import React from "react"
-import Container from "react-bootstrap/esm/Container"
+import Post from '../components/Post'
 
 export default () => {
   return(
-    <Container fluid>
-      
-    </Container>
+    <Post category="Categoria" title="Qualquer titulo ai" author="Fabio Freire" description="descricao"/>
   )
 }

@@ -27,7 +27,7 @@ function Header() {
             <Nav.Link href="/problems">Problemas, Ajude!</Nav.Link>
             <Nav.Link href="/likes">Curtidas</Nav.Link>
             <Nav.Link href="/newpost">Publicar Post</Nav.Link>
-            <Nav.Link href="/account">
+            <Nav.Link href="/profile">
               <img src="" alt="" />
             </Nav.Link>
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">

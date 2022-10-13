@@ -1,10 +1,10 @@
-import React from "react"
+import ProfileComp from '../components/ProfileComp'
+import React from 'react';
 
-export default () => {
-  return(
-    <div>
-      
-      aaaa
-    </div>
-  )
+function FigureExample(props) {
+  return (
+    <ProfileComp username="Pedro" followers="12921"/>
+  ); 
 }
+
+export default FigureExample;
