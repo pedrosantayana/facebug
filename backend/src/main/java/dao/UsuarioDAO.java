@@ -1,6 +1,6 @@
 package dao;
 
-import model.Usario;
+import model.Usuario;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -48,19 +48,14 @@ public class UsuarioDAO extends DAO {
     boolean status = false;
 
     try {
-      String sql = "INSERT INTO usuario (username, email, password, followers, likes, following) VALUES (?,?,?,?,?,?); ";
+      String sql = "CREATE INTO usuario (Username, Email, Password, Followers, Likes, Following) VALUES (?,?, " +usuario.getHashedPassword() + ",?,?,?); ";
 
       PreparedStatement st = conexao.prepareStatement(sql);
       st.setString(1, usuario.getUsername());
       st.setString(2, usuario.getEmail());
-      st.setByte(3, usuario.getHashedPassoword());
-      st.setObject(4, usuario.getFollowers());
-      st.setInt(5, usuario.getLikes());
-      st.setObject(6, usuario.getfollowing());
-      st.executeUpdate();
-      st.close();
-
-      PreparedStatement st = conexao.prepareStatement(sql);
+      st.setObject(3, usuario.getFollowers());
+      st.setInt(4, usuario.getLikes());
+      st.setObject(5, usuario.getFollowing());
       st.executeUpdate();
       st.close();
 
@@ -87,10 +82,8 @@ public class UsuarioDAO extends DAO {
       ResultSet rs = st.executeQuery(sql);
 
       if (rs.next()) {
-        String _username = (String) rs.getString("username");
 
-         usuario = new Usuario(_username, rs.getString("email"), rs.getByte("hashedPassword"),
-         rs.getObject("followers"), rs.getInt("likes"), rs.getObject("following"));
+         usuario = new Usuario(rs.getString("username"), rs.getString("email"), rs.getBytes("hashedPassword"));
       }
 
       st.close();
@@ -108,7 +101,7 @@ public class UsuarioDAO extends DAO {
    * @return <code>List<Usuario></code> lista de usuarios nao ordenada
    */
   public List<Usuario> get() {
-    return get("");
+    return getList("");
   }
 
   /**
@@ -118,7 +111,7 @@ public class UsuarioDAO extends DAO {
    * @return <code>List<Username></code> lista de usuarios ordenada pelo username
    */
   public List<Usuario> getOrderByUsername() {
-    return get("username");
+    return getList("username");
   }
 
   /**
@@ -127,7 +120,7 @@ public class UsuarioDAO extends DAO {
    * @param orderBy <code>String</code> chave de ordenacao
    * @return <code>List<Usuario></code> lista de usuarios
    */
-  private List<Usuario> get(String orderBy) {
+  private List<Usuario> getList(String orderBy) {
     List<Usuario> usuarios = new ArrayList<Usuario>();
 
     try {
@@ -136,12 +129,10 @@ public class UsuarioDAO extends DAO {
       ResultSet rs = st.executeQuery(sql);
 
       while (rs.next()) {
-        String _username = (String) rs.getString("username");
 
-        Usuario u = new Usuario(_username, rs.getString("email"), rs.getByte("hashedPassword"),
-         rs.getObject("followers"), rs.getInt("likes"), rs.getObject("following"));
+        Usuario u = new Usuario(rs.getString("username"), rs.getString("email"), rs.getBytes("hashedPassword"));
 
-        usuarios.add(p);
+        usuarios.add(u);
       }
 
       st.close();
@@ -157,15 +148,13 @@ public class UsuarioDAO extends DAO {
 
     try {
       Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-      String sql = "SELECT * FROM postagem WHERE ownerUsername=" + username;
+      String sql = "SELECT * FROM usuario WHERE Username=" + username;
       ResultSet rs = st.executeQuery(sql);
 
       int i = 0;
       while (rs.next()) {
-        String _username = (String) rs.getString("username");
-
-         usuario[i] = new Usuario(_username, rs.getString("email"), rs.getByte("hashedPassword"),
-         rs.getObject("followers"), rs.getInt("likes"), rs.getObject("following"));
+  
+         usuarios[i] = new Usuario(rs.getString("username"), rs.getString("email"), rs.getBytes("hashedPassword"));
         
         i++;
       }
@@ -186,19 +175,17 @@ public class UsuarioDAO extends DAO {
    *         <code>true</code> se conseguir atualizar
    *         <code>false</code> se nao conseguir
    */
-  public boolean update(Usuario usuario) {
+  public boolean update(String username, Usuario usuario) {
     boolean status = false;
 
     try {
-		String sql = "UPDATE usuario SET Email=?, HashedPassword=?, Followers=?, Likes=?, Following=?";
+		String sql = "UPDATE usuario SET Email=?, HashedPassword=" + usuario.getHashedPassword() + " , Followers=?, Likes=?, Following=? WHERE username =" + username;
 
       PreparedStatement st = conexao.prepareStatement(sql);
-      st.setString(1, usuario.getUsername());
-      st.setString(2, usuario.getEmail());
-      st.setByte(3, usuario.getHashedPassword());
-      st.setObject(4, usuario.getFollowers());
-      st.setInt(5, usuario.getLikes());
-      st.setObject(6, usuario.getfollowing());
+      st.setString(1, usuario.getEmail());
+      st.setObject(2, usuario.getFollowers());
+      st.setInt(3, usuario.getLikes());
+      st.setObject(4, usuario.getFollowing());
       st.executeUpdate();
       st.close();
 
@@ -232,5 +219,34 @@ public class UsuarioDAO extends DAO {
     }
 
     return status;
+  }
+
+  /**
+   * Busca usuario a partir de um username 
+   * 
+   * @param username <code>String</code> identificador do usuario
+   * @return <code>Usuario</code> status
+   */
+  public Usuario[] search(String query) {
+     Usuario[] usuarios = new Usuario[100];
+
+     try {
+      Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+      String sql = "SELECT * FROM usuario WHERE Username=" + query;
+      ResultSet rs = st.executeQuery(sql);
+     
+      int i = 0;
+      while (rs.next()) {
+  
+         usuarios[i] = new Usuario(rs.getString("username"), rs.getString("email"), rs.getBytes("hashedPassword"));
+        
+        i++;
+      }
+      st.close();
+    } catch (Exception e) {
+      System.err.println(e.getMessage());
+    }    
+
+    return usuarios;
   }
 }
