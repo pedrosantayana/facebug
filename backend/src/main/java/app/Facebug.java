@@ -12,7 +12,7 @@ public class Facebug {
   private static CategoriaService categoriaService = new CategoriaService();
 
   public static void main(String[] args) {
-    port(6789);
+    port(80);
 
     staticFiles.location("/public");
 
