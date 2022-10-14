@@ -11,12 +11,12 @@ public class DAO {
 
 	public boolean conectar() {
 		String driverName = "org.postgresql.Driver";
-		String serverName = "localhost";
+		String serverName = "pucmg-teste.postgres.database.azure.com";
 		String mydatabase = "teste";
 		int porta = 5432;
 		String url = "jdbc:postgresql://" + serverName + ":" + porta + "/" + mydatabase;
-		String username = "ti2cc";
-		String password = "ti@cc";
+		String username = "ti2cc@pucmg-teste";
+		String password = "facebug1234!";
 		boolean status = false;
 
 		try {
