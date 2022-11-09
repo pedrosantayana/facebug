@@ -33,12 +33,12 @@ function Cadastrar() {
 
         <Form.Group className="mb-3" controlId="email">
           <Form.Label>Email</Form.Label>
-          <Form.Control onChange={e => setEmail(e.target.value)} type="text" placeholder="Email" />
+          <Form.Control onChange={e => setEmail(e.target.value)} type="email" placeholder="Email" />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="password">
           <Form.Label>Senha</Form.Label>
-          <Form.Control onChange={e => setPassword(e.target.password)} type="password" placeholder="Senha" />
+          <Form.Control onChange={e => setPassword(e.target.value)} type="password" placeholder="Senha" />
         </Form.Group>
         <Button variant="primary" type="submit">
           Cadastrar
