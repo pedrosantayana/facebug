@@ -1,5 +1,4 @@
-const url = "http://localhost:6769";
-
+const url = "http://localhost:8080";
 
 // post("/usuario/cadastrar", (request, response) -> usuarioService.register(request, response));
 // post("/usuario/login", (request, response) -> usuarioService.login(request, response));

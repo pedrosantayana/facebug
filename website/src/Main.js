@@ -8,6 +8,7 @@ import Profile from './pages/Profile';
 import NewPost from './pages/NewPost';
 import Problems from './pages/Problems';
 import Likes from './pages/Likes';
+import Cadastrar from './pages/Cadastrar';
 
 const Main = () => {
   const isLoggedin = localStorage.getItem("session");
@@ -15,13 +16,14 @@ const Main = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={isLoggedin ? <Home /> : <Login />} />
+        <Route path="/home" element={isLoggedin ? <Home /> : <Login />} />
         <Route path="/login" element={isLoggedin ? <Home /> : <Login />} />
         <Route path="/trends" element={isLoggedin ? <Trends /> : <Login />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/newPost" element={isLoggedin ? <NewPost /> : <Login />} />
         <Route path="/problems" element={isLoggedin ? <Problems /> : <Login />} />
         <Route path="/likes" element={<Likes />} />
+        <Route path="/cadastrar" element={<Cadastrar />}/>
       </Routes>
     </BrowserRouter>
   );

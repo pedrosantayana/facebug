@@ -22,14 +22,13 @@ function Header() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/home">Home</Nav.Link>
             <Nav.Link href="/trends">Assuntos do Momento</Nav.Link>
             <Nav.Link href="/problems">Problemas, Ajude!</Nav.Link>
             <Nav.Link href="/likes">Curtidas</Nav.Link>
             <Nav.Link href="/newpost">Publicar Post</Nav.Link>
-            <Nav.Link href="/profile">
-              <img src="" alt="" />
-            </Nav.Link>
+            <Nav.Link href="/profile">Perfil</Nav.Link>
+            <Nav.Link href="/cadastrar">Cadastrar</Nav.Link>
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
