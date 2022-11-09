@@ -32,7 +32,7 @@ function Cadastrar() {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="email">
-          <Form.Label>Usuário</Form.Label>
+          <Form.Label>Email</Form.Label>
           <Form.Control onChange={e => setEmail(e.target.value)} type="text" placeholder="Email" />
         </Form.Group>
 
