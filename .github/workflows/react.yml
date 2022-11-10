@@ -1,3 +1,5 @@
+name: Build e Deploy React
+
 on:
   push:
     branches:

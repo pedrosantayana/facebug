@@ -45,15 +45,13 @@ public class UsuarioDAO extends DAO {
     boolean status = false;
 
     try {
-      String sql = "INSERT INTO usuario (Username, Email, Password, Followers, Likes, Following) VALUES (?,?, "
-          + usuario.getHashedPassword() + ",?,?,?); ";
+      String sql = "INSERT INTO usuario (Username, Nome, Senha, Email) VALUES (?, ?, ?, ?)";
 
       PreparedStatement st = conexao.prepareStatement(sql);
       st.setString(1, usuario.getUsername());
-      st.setString(2, usuario.getEmail());
-      st.setObject(3, usuario.getFollowers());
-      st.setInt(4, usuario.getLikes());
-      st.setObject(5, usuario.getFollowing());
+      st.setString(2, usuario.getName());
+      st.setBytes(3, usuario.getHashedPassword());
+      st.setString(4, usuario.getEmail());
       st.executeUpdate();
       st.close();
 

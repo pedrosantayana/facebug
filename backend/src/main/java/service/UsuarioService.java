@@ -29,7 +29,6 @@ public class UsuarioService {
     JSONObject resp = new JSONObject();
 
     JSONObject body = new JSONObject(request.body());
-
     String username = body.getString("username");
     String email = body.getString("email");
     byte[] hashedPassword = md.digest(body.getString("password").getBytes());
