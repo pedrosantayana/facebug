@@ -14,7 +14,7 @@ public class Facebug {
   private static CategoriaService categoriaService = new CategoriaService();
 
   public static void main(String[] args) {
-    if(System.getenv("PRODUCTION").equals("TRUE")) {
+    if(System.getenv("PRODUCTION") != null) {
       port(80);
     } else {
       port(8080);
