@@ -7,6 +7,8 @@ import service.PostagemService;
 import service.UsuarioService;
 
 public class Facebug {
+  private static String semVer = "v0.0.1";
+
   private static UsuarioService usuarioService = new UsuarioService();
   private static PostagemService postagemService = new PostagemService();
   private static CategoriaService categoriaService = new CategoriaService();
@@ -15,6 +17,8 @@ public class Facebug {
     port(80);
 
     staticFiles.location("/public");
+
+    get("/", (request, response) -> "Facebug API ".concat(semVer));
 
     post("/usuario/cadastrar", (request, response) -> usuarioService.register(request, response));
     post("/usuario/login", (request, response) -> usuarioService.login(request, response));
