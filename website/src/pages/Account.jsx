@@ -4,7 +4,6 @@ export default () => {
   return(
     <div>
       
-      aaaa
     </div>
   )
 }
