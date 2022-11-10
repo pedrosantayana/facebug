@@ -39,8 +39,9 @@ async function getData(_url) {
   return res.json();
 }
 
-export function register(username, email, password) {
+export function register(name, username, email, password) {
   return postData("/usuario/cadastrar", {
+    name: name,
     username: username,
     email: email,
     password: password

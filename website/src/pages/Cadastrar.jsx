@@ -4,13 +4,14 @@ import Form from 'react-bootstrap/Form';
 import { register } from '../api/facebug';
 import React, { useState } from 'react';
 function Cadastrar() {
+  const [name, setName] = useState();
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [email, setEmail] = useState();
 
   const fn = (event) => {
     event.preventDefault();
-    register(username, email, password)
+    register(name, username, email, password)
       .then(res => {
         if(res.status == 0) {
           localStorage.setItem("session", JSON.stringify(res.session));
@@ -26,6 +27,11 @@ function Cadastrar() {
     <Container fluid class="bg-warning">
       <h1>Cadastrar</h1>
       <Form onSubmit={fn}>
+        <Form.Group className="mb-3" controlId="name">
+          <Form.Label>Nome</Form.Label>
+          <Form.Control onChange={e => setName(e.target.value)} type="text" placeholder="Nome" />
+        </Form.Group>
+
         <Form.Group className="mb-3" controlId="username">
           <Form.Label>Usuário</Form.Label>
           <Form.Control onChange={e => setUsername(e.target.value)} type="text" placeholder="Nome de Usuário" />
