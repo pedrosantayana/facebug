@@ -11,6 +11,15 @@ public class Usuario {
   private UUID[] followers;
   private int likes;
   private UUID[] following;
+  private String Name;
+
+  public String getName() {
+    return Name;
+  }
+
+  public void setName(String name) {
+    Name = name;
+  }
 
   public Usuario(String username, String email, byte[] hashedPassword) {
     this.username = username;
