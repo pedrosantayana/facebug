@@ -14,7 +14,11 @@ public class Facebug {
   private static CategoriaService categoriaService = new CategoriaService();
 
   public static void main(String[] args) {
-    port(80);
+    if(System.getenv("PRODUCTION").equals("TRUE")) {
+      port(80);
+    } else {
+      port(8080);
+    }
 
     staticFiles.location("/public");
 
