@@ -1,15 +1,16 @@
-drop SCHEMA if EXISTS teste;
+drop SCHEMA if EXISTS facebug;
 
 
-CREATE SCHEMA IF NOT EXISTS teste;
+CREATE SCHEMA IF NOT EXISTS facebug;
 
 -- -----------------------------------------------------
 -- Table Usuario
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Usuario (
   Username VARCHAR(20) NOT NULL UNIQUE,
+  Nome VARCHAR(45) NOT NULL,
   Senha BYTEA NOT NULL,
-  Email VARCHAR(45) NOT NULL,
+  Email VARCHAR(100) NOT NULL,
   PRIMARY KEY (Username)
 );
 
