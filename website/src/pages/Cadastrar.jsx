@@ -2,7 +2,10 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/esm/Container';
 import Form from 'react-bootstrap/Form';
 import { register } from '../api/facebug';
+import { Navigate } from 'react-router-dom';
 import React, { useState } from 'react';
+
+
 function Cadastrar() {
   const [name, setName] = useState();
   const [username, setUsername] = useState();
@@ -13,9 +16,12 @@ function Cadastrar() {
     event.preventDefault();
     register(name, username, email, password)
       .then(res => {
-        if(res.status == 0) {
+        if(res.status === 0) {
           localStorage.setItem("session", JSON.stringify(res.session));
           // redirect to home
+          return (
+            <Navigate to="/home" />
+          )
         } else {
           console.log("Não foi possível cadastrar. Status: "+res.status);
         }

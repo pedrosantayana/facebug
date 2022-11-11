@@ -73,13 +73,13 @@ public class UsuarioDAO extends DAO {
     Usuario usuario = null;
 
     try {
+      String sql = "SELECT * FROM usuario WHERE username= '"+username+"'";
       Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-      String sql = "SELECT * FROM usuario WHERE username=" + username;
       ResultSet rs = st.executeQuery(sql);
 
       if (rs.next()) {
 
-        usuario = new Usuario(rs.getString("name"), rs.getString("username"), rs.getString("email"), rs.getBytes("hashedPassword"));
+        usuario = new Usuario(rs.getString("nome"), rs.getString("username"), rs.getString("email"), rs.getBytes("senha"));
       }
 
       st.close();

@@ -7,7 +7,7 @@ import service.PostagemService;
 import service.UsuarioService;
 
 public class Facebug {
-  private static String semVer = "v0.0.1";
+  private static String semVer = "v0.0.2";
 
   private static UsuarioService usuarioService = new UsuarioService();
   private static PostagemService postagemService = new PostagemService();
