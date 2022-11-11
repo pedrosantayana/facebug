@@ -9,7 +9,7 @@ jobs:
   build-deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: a
-      run: ls
     - id: build-publish
       uses: bitovi/github-actions-react-to-ghp@v1.0.0
+      with:
+        working-directory: ./website
