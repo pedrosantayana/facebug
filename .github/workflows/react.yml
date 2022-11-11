@@ -10,6 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: a
-      run: cd website
+      run: ls
     - id: build-publish
       uses: bitovi/github-actions-react-to-ghp@v1.0.0
