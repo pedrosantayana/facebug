@@ -11,9 +11,13 @@ jobs:
     steps:
       - name: build and deploy
         working-directory: ./website
+        run: npm ci
+      - name: build
+        working-directory: ./website
+        run: npm run build
+      - name: git
+        working-directory: ./website
         run: |
-          npm ci
-          npm run build
           git --work-tree build add --all
           git --work-tree build commit -m 'deploy files'
           git push origin HEAD:gh-pages --force
