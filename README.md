@@ -1,5 +1,6 @@
 # Facebug
 [![Website](https://github.com/pedrosantayana/facebug/actions/workflows/react.yml/badge.svg)](https://github.com/pedrosantayana/facebug/actions/workflows/react.yml)
+[![Build e Deploy Facebug no Azure](https://github.com/pedrosantayana/facebug/actions/workflows/main_facebug.yml/badge.svg)](https://github.com/pedrosantayana/facebug/actions/workflows/main_facebug.yml)  
 Facebug, uma rede social para programadores e amantes de tecnologia.
 
 # Referências
