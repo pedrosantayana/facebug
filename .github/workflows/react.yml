@@ -9,8 +9,9 @@ jobs:
   build-deploy:
     runs-on: ubuntu-latest
     steps:
+     - run: cd website
+       shell: bash
      - run: npm ci
-       working-directory: website
        shell: bash
      - run: npm run build
        shell: bash
