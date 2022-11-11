@@ -9,15 +9,12 @@ jobs:
   build-deploy:
     runs-on: ubuntu-latest
     steps:
-     - run: ls .
-       shell: bash
-     - run: npm ci
-       shell: bash
-     - run: npm run build
-       shell: bash
-     - run: git --work-tree build add --all
-       shell: bash
-     - run: git --work-tree build commit -m 'deploy files'
-       shell: bash
-     - run: git push origin HEAD:gh-pages --force
-       shell: bash
+      - name: build and deploy
+        working-directory: ./website
+        run: |
+          npm ci
+          npm run build
+          git --work-tree build add --all
+          git --work-tree build commit -m 'deploy files'
+          git push origin HEAD:gh-pages --force
+
