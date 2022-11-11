@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
      - run: npm ci
-       working-directory: ./website
+       working-directory: website
        shell: bash
      - run: npm run build
        shell: bash
