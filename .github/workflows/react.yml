@@ -17,10 +17,6 @@ jobs:
       - name: build
         working-directory: ./website
         run: npm run build
-      - name: Authorizing Github action
-        with:
-          token: "${{ secrets.GITHUB_TOKEN }}"
-        uses: oleksiyrudenko/gha-git-credentials@v1
       - name: git
         working-directory: ./website
         run: |
