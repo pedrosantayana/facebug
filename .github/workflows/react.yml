@@ -8,10 +8,15 @@ on:
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./website
-    steps:
-    - id: build-publish
-      uses: bitovi/github-actions-react-to-ghp@v1.0.0
-
+      
+      steps:
+       - run: npm ci
+         shell: bash
+       - run: npm run build
+         shell: bash
+       - run: git --work-tree build add --all
+         shell: bash
+       - run: git --work-tree build commit -m 'deploy files'
+         shell: bash
+       - run: git push origin HEAD:gh-pages --force
+         shell: bash
