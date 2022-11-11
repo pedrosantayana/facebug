@@ -79,7 +79,7 @@ public class UsuarioDAO extends DAO {
 
       if (rs.next()) {
 
-        usuario = new Usuario(rs.getString("username"), rs.getString("email"), rs.getBytes("hashedPassword"));
+        usuario = new Usuario(rs.getString("name"), rs.getString("username"), rs.getString("email"), rs.getBytes("hashedPassword"));
       }
 
       st.close();
@@ -126,7 +126,7 @@ public class UsuarioDAO extends DAO {
 
       while (rs.next()) {
 
-        Usuario u = new Usuario(rs.getString("username"), rs.getString("email"), rs.getBytes("hashedPassword"));
+        Usuario u = new Usuario(rs.getString("name"), rs.getString("username"), rs.getString("email"), rs.getBytes("hashedPassword"));
 
         usuarios.add(u);
       }
@@ -150,7 +150,7 @@ public class UsuarioDAO extends DAO {
       int i = 0;
       while (rs.next()) {
 
-        usuarios[i] = new Usuario(rs.getString("username"), rs.getString("email"), rs.getBytes("hashedPassword"));
+        usuarios[i] = new Usuario(rs.getString("name"), rs.getString("username"), rs.getString("email"), rs.getBytes("hashedPassword"));
 
         i++;
       }
@@ -235,7 +235,7 @@ public class UsuarioDAO extends DAO {
       int i = 0;
       while (rs.next()) {
 
-        usuarios[i] = new Usuario(rs.getString("username"), rs.getString("email"), rs.getBytes("hashedPassword"));
+        usuarios[i] = new Usuario(rs.getString("name"), rs.getString("username"), rs.getString("email"), rs.getBytes("hashedPassword"));
 
         i++;
       }

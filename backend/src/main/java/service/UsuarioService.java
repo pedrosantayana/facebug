@@ -29,11 +29,12 @@ public class UsuarioService {
     JSONObject resp = new JSONObject();
 
     JSONObject body = new JSONObject(request.body());
+    String name = body.getString("name");
     String username = body.getString("username");
     String email = body.getString("email");
     byte[] hashedPassword = md.digest(body.getString("password").getBytes());
 
-    Usuario user = new Usuario(username, email, hashedPassword);
+    Usuario user = new Usuario(name, username, email, hashedPassword);
 
     if (usuarioDAO.create(user)) {
       Session session = sessionService.login(user);

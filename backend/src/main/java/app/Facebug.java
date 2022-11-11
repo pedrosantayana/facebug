@@ -14,13 +14,17 @@ public class Facebug {
   private static CategoriaService categoriaService = new CategoriaService();
 
   public static void main(String[] args) {
-    if(System.getenv("PRODUCTION") != null) {
-      port(80);
-    } else {
-      port(8080);
-    }
-
+    port(8080);
+    
+    // if(System.getenv("PRODUCTION") != null) {
+      //   port(80);
+      // } else {
+        // }
+          
     staticFiles.location("/public");
+    
+    before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
+    before((request, response) -> System.out.println(request.uri()));
 
     get("/", (request, response) -> "Facebug API ".concat(semVer));
 

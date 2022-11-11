@@ -21,7 +21,8 @@ public class Usuario {
     Name = name;
   }
 
-  public Usuario(String username, String email, byte[] hashedPassword) {
+  public Usuario(String name, String username, String email, byte[] hashedPassword) {
+    this.Name = name;
     this.username = username;
     this.email = email;
     this.hashedPassword = hashedPassword;
