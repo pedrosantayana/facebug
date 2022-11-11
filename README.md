@@ -1,4 +1,5 @@
 # Facebug
+[![Website](https://github.com/pedrosantayana/facebug/actions/workflows/react.yml/badge.svg)](https://github.com/pedrosantayana/facebug/actions/workflows/react.yml)
 Facebug, uma rede social para programadores e amantes de tecnologia.
 
 # Referências
